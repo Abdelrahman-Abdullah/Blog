@@ -1,0 +1,11 @@
+{{--Default Value for Activiation--}}
+ @props(['active' => false])
+ @php
+    $defaultClass = 'block text-left px-3 leading-6 text-sm hover:bg-blue-500 hover:text-white focus:bg-blue-500 focus:text-white';
+    $activeClass  = 'bg-blue-500 text-white';
+ @endphp
+<a
+    {{$attributes->class([$defaultClass ,$activeClass => $active])}}
+>
+    {{$slot}}
+</a>
