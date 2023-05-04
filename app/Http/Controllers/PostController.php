@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -38,4 +40,25 @@ class PostController extends Controller
             );
     }
 
+    public function create()
+    {
+        return view('posts.create' , [
+            'categories' => Category::all()
+        ]);
+    }
+
+    public function store()
+    {
+
+        $validator =  request()->validate([
+            'title' => ['required'],
+            'body' => ['required'],
+            'category_id' => ['required' , 'integer' , Rule::exists('categories' , 'id')],
+            'thumbnail' => ['required' , 'image']
+        ]);
+        $validator['user_id'] = auth()->id() ;
+        $validator['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
+       Post::create($validator);
+       return redirect('/');
+    }
 }

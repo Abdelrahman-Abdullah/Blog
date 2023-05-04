@@ -40,3 +40,6 @@ Route::middleware('auth')->group(function (){
     Route::post('logout' , [SessionController::class , 'destroy']);
 });
 
+// Admins
+Route::get('admin/post/create' , [PostController::class , 'create'])->middleware('admin');
+Route::post('admin/post' , [PostController::class , 'store'])->middleware('admin');
