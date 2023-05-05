@@ -2,6 +2,7 @@
 <div
     x-data="{open : false}"
     @click.away="open = false"
+    class="relative"
 >
     {{--Trigger--}}
     <div @click="open = !open" @click.away="open = false">

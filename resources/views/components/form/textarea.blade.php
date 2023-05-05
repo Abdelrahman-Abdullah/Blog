@@ -7,6 +7,7 @@
         rows="7"
         name="{{$name}}"
     >
+        {{$slot}}
     </textarea>
     <x-form.error name="{{$name}}"/>
 

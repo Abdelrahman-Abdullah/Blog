@@ -1,5 +1,5 @@
 <form method="POST" action="/posts/{{$post->title}}/comments"
-      class="border border-gray-400 bg-gray-50 p-6 rounded-xl">
+      class="border border-gray-400 bg-gray-50 p-6 rounded-xl mt-6">
     @csrf
     <header class="flex items-center ">
         <img src="https://i.pravatar.cc/?u={{auth()->id()}}" alt="" width="60" class="rounded-xl">
@@ -20,7 +20,6 @@
             </p>
         @enderror
     </div>
-
     <div class="flex justify-end mt-2">
         <x-main-submit-button>
             Post

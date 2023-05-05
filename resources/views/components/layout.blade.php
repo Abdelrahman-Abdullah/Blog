@@ -28,14 +28,46 @@
             {{-- Check If the user Logged in --}}
             @auth
                 {{-- True : Show Welcome Message With his name and logout button --}}
-                <a href="/register" class="text-xs font-bold uppercase">Welcome , {{auth()->user()->name}}</a>
+                <x-dropitems>
+                    {{--Trigger--}}
+                    <x-slot name="trigger">
+                        <button class="text-xs font-bold uppercase">
+                            Welcome, {{ auth()->user()->name }}!
+                        </button>
+                    </x-slot>
+                    {{--Trigger--}}
 
-                <form class="ml-6 text-sm hover:text-red-500 text-blue-500"
-                      method="POST"
-                      action="/logout">
-                     @csrf
-                    <button type="submit">Logout</button>
-                </form>
+                    {{--Links--}}
+                    @admin
+                        <x-item-to-drop href="/admin/post/create"
+                                        :active="request()->is('admin/post/create') ? 'true' : ''"
+                        >
+                            New Post
+                        </x-item-to-drop>
+                        <x-item-to-drop href="/admin/posts"
+                                        :active="request()->is('admin/posts') ? 'true' : ''"
+                        >
+                           All Posts
+                        </x-item-to-drop>
+                    @endadmin
+                    <x-item-to-drop
+                        href="#"
+                        x-data="{}"
+                        @click.prevent="document.querySelector('#logout').submit()"
+                    >
+                        Logout
+                    </x-item-to-drop>
+                    {{--Links--}}
+
+                    <form class="ml-6 text-sm hover:text-red-500 text-blue-500 hidden"
+                          id="logout"
+                          method="POST"
+                          action="/logout"
+
+                    >
+                         @csrf
+                    </form>
+                </x-dropitems>
 
                 {{-- False : Show Login and Register buttons --}}
             @else
@@ -43,7 +75,7 @@
                 <a href="/login" class="text-xs font-bold uppercase mx-4">Login</a>
             @endauth
 
-            <a href="#newsletter" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
+            <a href="#newsletter" class="bg-blue-500 ml-3 rounded-full text-xs font-bold text-white uppercase py-3 px-5">
                 Subscribe for Updates
             </a>
         </div>
